@@ -7,7 +7,7 @@ interface CardProps {
 const Card = (props: CardProps) => {
   return (
     <div
-      className={`border-1 border-foreground-100 aspect-51/32 w-full rounded-xl relative cursor-pointer hover:scale-102 duration-75 ease-in ${props.src ? "" : "bg-gradient"} overflow-hidden`}
+      className={`border-1 border-foreground-100 aspect-51/32 w-full rounded-xl relative hover:scale-102 duration-75 ease-in ${props.src ? "" : "bg-gradient"} overflow-hidden`}
     >
       {props.src && (
         <img
@@ -33,7 +33,7 @@ const Card = (props: CardProps) => {
 function Spotlight() {
   return (
     <div>
-      <h2 className="mt-20 text-center heading">
+      <h2 className="mt-25 text-center heading">
         My Recent <span className="text-gradient">Projects</span>
       </h2>
 

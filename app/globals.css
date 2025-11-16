@@ -15,6 +15,10 @@
   );
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   background: var(--color-background);
   color: var(--color-foreground);
@@ -31,6 +35,15 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.icon-gradient {
+  stroke: var(--color-gradient);
+  stroke: var(--color-gradient);
+}
+
+.font-inter {
+  font-family: var(--font-inter);
 }
 
 .heading {

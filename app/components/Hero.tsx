@@ -5,8 +5,12 @@ function Hero() {
   return (
     <div className="w-screen h-auto">
       <div className="bg-foreground-50 border-1 border-foreground-200 my-3 mx-4 lg:my-5 lg:mx-10 rounded-xl px-10 py-8 xl:py-20 xl:px-25 2xl:mx-auto relative block lg:m-auto max-w-350">
-        <div className="h-[8em] aspect-1/1 rounded-full overflow-hidden">
-          <img src="/profile.jpeg" alt="profile-icon" />
+        <div className="h-[8em] aspect-1/1 rounded-full overflow-hidden relative">
+          <img
+            className="absolute scale-300 top-30"
+            src="/profile.jpeg"
+            alt="profile-icon"
+          />
         </div>
 
         <h1 className="text-2xl font-bold my-5 z-2">
