@@ -10,7 +10,7 @@ function Hero() {
         </div>
 
         <h1 className="text-2xl font-bold my-5 z-2">
-          Hi. I&apos;m <span className="color-gradient">Tafara.</span>
+          Hi. I&apos;m <span className="text-gradient">Tafara.</span>
         </h1>
 
         <div className="flex flex-row gap-3 z-2">
@@ -34,13 +34,11 @@ function Hero() {
 
         <div className="flex flex-row gap-2 z-2">
           <ClearButton className="">
-            <p className="color-gradient text-lg lg:text-xl font-medium my-1">
-              Portfolio
-            </p>
+            <p className="text-gradient text-lg font-medium my-1">Portfolio</p>
           </ClearButton>
 
           <ClearButton>
-            <p className="text-lg font-medium lg:text-xl my-1">Contact Me</p>
+            <p className="text-lg font-medium my-1">Contact Me</p>
           </ClearButton>
         </div>
       </div>

@@ -13,19 +13,28 @@
     var(--color-purple-400) 0%,
     var(--color-purple-500) 100%
   );
-  --font-inter: font-family: "Inter", sans-serif;
 }
 
 body {
   background: var(--color-background);
-  color: white;
+  color: var(--color-foreground);
   font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
 }
 
-.color-gradient {
+.bg-gradient {
+  background: var(--color-gradient);
+}
+
+.text-gradient {
   background: var(--color-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.heading {
+  font-weight: 900;
+  font-family: var(--font-inter);
+  @apply text-3xl;
 }
