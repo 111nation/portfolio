@@ -37,7 +37,7 @@ function Spotlight() {
         My Recent <span className="text-gradient">Projects</span>
       </h2>
 
-      <div className="w-full grid grid-cols-4 gap-2 lg:gap-10 px-7 my-7 max-w-300 mx-auto">
+      <div className="w-full grid grid-rows-4 sm:grid-rows-1 sm:grid-cols-4 sm:grid-rows-0 gap-5 sm:gap-2 lg:gap-10 px-7 my-7 max-w-300 mx-auto">
         <Card category="Web App" src="configvim-spotlight.png">
           Config.vim
         </Card>

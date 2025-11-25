@@ -6,7 +6,7 @@ interface TagProp {
 
 function Tag(props: TagProp) {
   return (
-    <div className="flex flex-row justify-center items-center border-1 rounded-full px-3.5 border-[rgba(254,254,255,0.16)]">
+    <div className="flex flex-row justify-center items-center border-1 rounded-full px-3.5 border-[rgba(254,254,255,0.16)] text-nowrap text-lg sm:text-sm">
       {props.children}
     </div>
   );

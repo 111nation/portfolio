@@ -24,12 +24,12 @@ function Contact() {
       <h2 className="heading text-center mt-10 mb-5">
         Ready To <span className="text-gradient">Elevate Your Business?</span>
       </h2>
-      <p className="text-center w-[50%] m-auto mb-5">
+      <p className="text-center sm:w-[50%] m-auto mb-5">
         Join the elite businesses who built customer trust and their online
         presence.
       </p>
 
-      <div className="w-[30%] mx-auto max-w-70 grid grid-cols-4 gap-5 my-5 lg:my-10">
+      <div className="w-[70%] sm:w-[30%] mx-auto max-w-70 grid grid-cols-4 gap-5 my-5 lg:my-10">
         <Social href="https://www.linkedin.com/in/tafara111/">
           <LinkedIn className="scale-50" />
         </Social>
