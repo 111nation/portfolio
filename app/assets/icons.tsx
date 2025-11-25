@@ -2,6 +2,42 @@ interface IconProps {
   className?: string;
 }
 
+export function Comment(props: IconProps) {
+  return (
+    <svg
+      className={props.className}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.59182 15.3042C2.34396 9.78675 6.40306 3.75 12.3609 3.75H12.6823C17.1379 3.75 20.7499 7.36201 20.7499 11.8176C20.7499 16.7785 16.7284 20.8 11.7676 20.8H3.94731C3.62905 20.8 3.34545 20.5991 3.23982 20.2989C3.13419 19.9987 3.22954 19.6645 3.47769 19.4652L5.44918 17.8819C5.53538 17.8127 5.56587 17.6951 5.52416 17.5927L4.59182 15.3042ZM12.3609 5.25C7.46834 5.25 4.13502 10.2074 5.98096 14.7383L6.9133 17.0268C7.2053 17.7435 6.99184 18.5669 6.38842 19.0515L6.07897 19.3H11.7676C15.9 19.3 19.2499 15.95 19.2499 11.8176C19.2499 8.19044 16.3095 5.25 12.6823 5.25H12.3609Z"
+      />
+    </svg>
+  );
+}
+
+export function Heart(props: IconProps) {
+  return (
+    <svg
+      className={props.className}
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+        fill="none"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function Email(props: IconProps) {
   return (
     <svg
@@ -220,18 +256,21 @@ export function LinkOut(props: IconProps) {
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
       <path
         d="M16 3L21 3L21 8"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
       <path
         d="M21 14V19C21 20.1046 20.1046 21 19 21H12H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H10"
         strokeWidth="3"
         strokeLinecap="round"
         strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   );

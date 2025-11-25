@@ -20,7 +20,10 @@ const Social = (props: SocialProp) => {
 
 function Contact() {
   return (
-    <div className="border-t-1 border-foreground-100 w-[90%] max-w-300 m-auto mb-10">
+    <div
+      className="border-t-1 border-foreground-100 w-[90%] max-w-300 m-auto mb-10"
+      id="contact"
+    >
       <h2 className="heading text-center mt-10 mb-5">
         Ready To <span className="text-gradient">Elevate Your Business?</span>
       </h2>

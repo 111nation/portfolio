@@ -24,7 +24,10 @@ const Section = (props: SectionProps) => {
 
 function Overview() {
   return (
-    <div className="grid m-auto mt-20 px-7 sm:px-15 gap-5 sm:grid-cols-[1fr_1.5fr] xl:grid-cols-[1fr_1.2fr] max-w-320 items-center">
+    <div
+      className="grid m-auto mt-20 px-7 sm:px-15 gap-5 sm:grid-cols-[1fr_1.5fr] xl:grid-cols-[1fr_1.2fr] max-w-320 items-center"
+      id="overview"
+    >
       <div className="h-full flex flex-col justify-evenly py-10 xl:px-10">
         <h2 className="heading">
           Build{" "}

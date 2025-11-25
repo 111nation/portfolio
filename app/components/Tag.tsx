@@ -2,11 +2,14 @@ import { ReactNode } from "react";
 
 interface TagProp {
   children?: ReactNode;
+  className?: string;
 }
 
 function Tag(props: TagProp) {
   return (
-    <div className="flex flex-row justify-center items-center border-1 rounded-full px-3.5 border-[rgba(254,254,255,0.16)] text-nowrap text-lg sm:text-sm">
+    <div
+      className={`flex flex-row justify-center items-center border-1 rounded-full px-3.5 border-[rgba(254,254,255,0.16)] text-nowrap text-lg sm:text-sm ${props.className}`}
+    >
       {props.children}
     </div>
   );

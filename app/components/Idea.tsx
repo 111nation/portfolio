@@ -1,6 +1,9 @@
 function Idea() {
   return (
-    <div className="border-1 border-foreground-50 bg-[rgba(217,217,217,0.03)] w-[93%] max-w-375 mx-auto my-15 rounded-xl pb-30 sm:pb-50 overflow-hidden">
+    <div
+      className="border-1 border-foreground-50 bg-[rgba(217,217,217,0.03)] w-[93%] max-w-375 mx-auto my-15 rounded-xl pb-30 sm:pb-50 overflow-hidden"
+      id="idea"
+    >
       <h2 className="heading text-center  mt-10 sm:mt-8 sm:mb-3">
         Have A <span className="text-gradient">Killer</span> App Idea?
       </h2>
