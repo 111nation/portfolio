@@ -1,8 +1,15 @@
-import { ImageIcon } from "../../assets/icons";
+"use client";
+import TextEdit from "@/app/components/TextEdit";
+import { Bin, ImageIcon } from "../../assets/icons";
+import Button from "@/app/components/Button";
 
 const ImagePreview = () => {
   return (
-    <div className="border-1 border-foreground-200 rounded-xl h-40 sm:h-75 aspect-3/4 flex justify-center items-center cursor-pointer hover:bg-foreground-50 duration-300 ease-out active:border-2 active:border-purple-500 group-hover m-0"></div>
+    <div className="border-1 border-foreground-200 rounded-xl h-40 sm:h-75 aspect-3/4 flex justify-center items-center m-0">
+      <div className="group hover:scale-110 duration-100 cursor-pointer group rounded-full border-1 border-foreground-200 w-fit aspect-1/1 p-2 sm:p-3 bg-background">
+        <Bin className="group-hover:stroke-[rgba(219, 13, 51, 1)] stroke-[rgba(254,254,254,.3)] scale-100 h-[1.2em] md:scale-120 m-0 "></Bin>
+      </div>
+    </div>
   );
 };
 
@@ -26,16 +33,6 @@ const InsertImage = () => {
       {/* Image Previews */}
       <ImagePreview></ImagePreview>
       <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
-      <ImagePreview></ImagePreview>
     </div>
   );
 };
@@ -43,21 +40,14 @@ const InsertImage = () => {
 function NewPost() {
   return (
     <form className="border-1 border-foreground-200 rounded-2xl py-4 px-7  select-none m-10 flex flex-col justify-center items-center gap-3 w-[90%] max-w-350 mx-auto">
-      <input
-        type="text"
-        className="font-inter border-1 border-foreground-200 rounded-3xl outline-none focus:border-2 focus:border-purple-500 placeholder:font-light placeholder:opacity-40 placeholder:text-[#D9D9D9] w-full pl-6 py-2 text-gradient font-semibold text-lg w-auto"
+      <TextEdit
+        className="text-gradient font-semibold text-lg"
         placeholder="Heading"
         name="heading"
         required
       />
 
-      <input
-        type="text"
-        className="font-inter border-1 border-foreground-200 rounded-3xl outline-none focus:border-2 focus:border-purple-500 placeholder:font-light placeholder:opacity-40 placeholder:text-[#D9D9D9] w-full pl-6 py-2 text-md w-auto"
-        placeholder="Short Description"
-        name="short-desc"
-        required
-      />
+      <TextEdit placeholder="Short Description" name="short-desc" required />
 
       <InsertImage />
 
@@ -67,11 +57,7 @@ function NewPost() {
         name="long-desc"
       ></textarea>
 
-      <input
-        type="submit"
-        className="font-inter text-[rgba(254,254,255,0.39)] bg-foreground-50 border-1 border-[rgba(254,254,255,0.07)] py-2 px-3 rounded-3xl cursor-pointer flex flex-row items-center gap-1 hover:scale-101 duration-150 ease-in-out"
-        value="Upload Project"
-      />
+      <Button submit>Upload Project</Button>
     </form>
   );
 }

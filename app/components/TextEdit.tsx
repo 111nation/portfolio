@@ -1,0 +1,24 @@
+interface TextEditProps {
+  password?: boolean;
+  placeholder: string;
+  name?: string;
+  required?: boolean;
+  className?: string;
+}
+
+function TextEdit(props: TextEditProps) {
+  return (
+    <input
+      type={props.password ? "password" : "text"}
+      className={
+        "font-inter border-1 border-foreground-200 rounded-3xl outline-none focus:border-2 focus:border-purple-500 placeholder:font-light placeholder:opacity-40 placeholder:text-[#D9D9D9] w-full pl-6 py-2 text-md w-auto " +
+        props.className
+      }
+      placeholder={props.placeholder}
+      name={props.name}
+      required={props.required == true}
+    />
+  );
+}
+
+export default TextEdit;
