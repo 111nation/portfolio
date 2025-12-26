@@ -1,6 +1,10 @@
+"use client";
 import Footer from "@/app/components/Footer";
 import PortfolioNavbar from "../components/NavBar";
 import PostView from "../components/PostView";
+import { useEffect, useState } from "react";
+import { GetPostById } from "@/api/posts";
+import { useParams } from "next/navigation";
 
 interface ImgProps {
   src: string;
@@ -17,16 +21,21 @@ const Img = (props: ImgProps) => {
 };
 
 function Project() {
+  const [post, setPost] = useState<any>();
+  const params = useParams<{ slug: string }>();
+  const { slug } = params;
+
+  useEffect(() => {
+    // Get Post
+    GetPostById(slug)
+      .then((result) => setPost(result))
+      .catch((err) => {});
+  }, []);
   return (
     <>
       <PortfolioNavbar></PortfolioNavbar>
       <div className="px-5">
-        <PostView>
-          <Img src="/youboard/1.png"></Img>
-          <Img src="/youboard/2.png"></Img>
-          <Img src="/youboard/3.png"></Img>
-          <Img src="/youboard/4.png"></Img>
-        </PostView>
+        <PostView data={post}></PostView>
       </div>
       <Footer></Footer>
     </>

@@ -1,5 +1,6 @@
 "use client";
 import { Comment, Heart, Bin } from "@/app/assets/icons";
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 interface ControlProps {
@@ -23,9 +24,17 @@ const Control = (props: ControlProps) => {
   );
 };
 
-function Post() {
+interface PostProps {
+  data?: any;
+}
+
+function Post(props: PostProps) {
+  const router = useRouter();
   return (
-    <div className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative">
+    <div
+      className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative"
+      onClick={() => router.push(`/portfolio/${props.data.doc_id}`)}
+    >
       <Control className="aspect-1/1 rounded-full flex justify-center items-center p-0 absolute right-5 top-5">
         <Bin className="stroke-[rgba(254,254,254,.3)] h-[1em] scale-120 m-0"></Bin>
       </Control>
@@ -33,18 +42,19 @@ function Post() {
       <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
         3hr. ago
       </p>
-      <h3 className="text-gradient font-bold text-xl mt-3 mb-2">youboard.</h3>
-      <p className="sm:w-[50%] my-2 mb-15">
-        A Pinterest-like social media for university students
-      </p>
+      <h3 className="text-gradient font-bold text-xl mt-3 mb-2">
+        {props.data.heading}
+      </h3>
+      <p className="sm:w-[50%] my-2 mb-15">{props.data.short_desc}</p>
+
       <div className="flex flex-row gap-3">
         <Control>
           <Heart className="stroke-[rgba(254,254,254,.3)] h-[1.5em]"></Heart>
-          <p className="">20k</p>
+          <p className="">{props.data.likes}</p>
         </Control>
         <Control>
           <Comment className="fill-[rgba(254,254,254,.3)] h-[1.5em]"></Comment>
-          <p>3.1k</p>
+          <p>{props.data.comments}</p>
         </Control>
       </div>
     </div>

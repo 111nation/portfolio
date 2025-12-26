@@ -16,6 +16,7 @@ const Control = (props: ControlProps) => {
 
 interface PostViewInterface {
   children?: ReactNode;
+  data?: any;
 }
 
 function PostView(props: PostViewInterface) {
@@ -24,23 +25,20 @@ function PostView(props: PostViewInterface) {
       <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
         3hr. ago
       </p>
-      <h3 className="text-gradient font-bold text-2xl mt-3 mb-2">youboard.</h3>
-      <p className="my-5 text-lg">
-        A Pinterest-like social media for university students
-      </p>
+      <h3 className="text-gradient font-bold text-2xl mt-3 mb-2">
+        {props.data.heading}
+      </h3>
+      <p className="my-5 text-lg">{props.data.short_desc}</p>
 
       <div className="flex flex-row flex-wrap gap-5 my-10">
         {props.children}
       </div>
 
-      <p className="my-10">
-        youboard. is a social media where university students can post their
-        #student living. Create an account and post your best highlights.{" "}
-      </p>
+      <p className="my-10">{props.data.long_desc}</p>
       <div className="flex flex-row gap-3">
         <Control>
           <Heart className="stroke-[rgba(254,254,254,.3)] h-[1.5em]"></Heart>
-          <p className="">20k</p>
+          <p className="">{props.data.likes}</p>
         </Control>
         <Control>
           <p>Online Demo</p>
