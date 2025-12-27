@@ -3,7 +3,7 @@ import TextEdit from "@/app/components/TextEdit";
 import { Bin, ImageIcon } from "../../assets/icons";
 import Button from "@/app/components/Button";
 import { useState } from "react";
-import { UploadPost } from "@/api/upload";
+import { UploadPost } from "@/api/posts";
 import PopUp from "@/app/components/PopUp";
 
 interface ImageProps {
@@ -96,8 +96,8 @@ function NewPost() {
     const formData: FormData = new FormData(form);
 
     const heading = formData.get("heading");
-    const short_desc = formData.get("short_desc");
-    const long_desc = formData.get("long_desc");
+    const short_desc = formData.get("short-desc");
+    const long_desc = formData.get("long-desc");
 
     if (
       typeof heading !== "string" ||
@@ -118,6 +118,7 @@ function NewPost() {
         setShowPopUp(true);
       })
       .catch((e: any) => {
+        console.log(e);
         setHeading("Error");
         setMessage("Error uploading project: " + e.message);
         setShowPopUp(true);

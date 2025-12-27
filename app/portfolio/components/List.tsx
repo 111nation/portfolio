@@ -11,15 +11,19 @@ function List() {
     // Retrieve posts
     GetPosts()
       .then((result) => setPosts([...result]))
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
-    <div className="flex flex-col sm:px-10 px-5 my-20 gap-5 sm:max-w-200 sm:mx-auto">
-      {posts.map((post: any, index: number) => (
-        <Post key={index} data={post}></Post>
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col sm:px-10 px-5 my-20 gap-5 sm:max-w-200 sm:mx-auto">
+        {posts.map((post: any, index: number) => (
+          <Post key={index} data={post}></Post>
+        ))}
+      </div>
+    </>
   );
 }
 

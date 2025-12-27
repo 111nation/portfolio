@@ -21,30 +21,34 @@ interface PostViewInterface {
 
 function PostView(props: PostViewInterface) {
   return (
-    <div className="border-1 border-foreground-100  rounded-2xl py-4 px-7 my-10 sm:max-w-275 sm:mx-auto">
-      <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
-        3hr. ago
-      </p>
-      <h3 className="text-gradient font-bold text-2xl mt-3 mb-2">
-        {props.data.heading}
-      </h3>
-      <p className="my-5 text-lg">{props.data.short_desc}</p>
+    <>
+      {props.data && (
+        <div className="border-1 border-foreground-100  rounded-2xl py-4 px-7 my-10 sm:max-w-275 sm:mx-auto">
+          <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
+            3hr. ago
+          </p>
+          <h3 className="text-gradient font-bold text-2xl mt-3 mb-2">
+            {props.data.heading}
+          </h3>
+          <p className="my-5 text-lg">{props.data.short_desc}</p>
 
-      <div className="flex flex-row flex-wrap gap-5 my-10">
-        {props.children}
-      </div>
+          <div className="flex flex-col flex-wrap gap-5 my-10 w-full h-75 flex-nowrap overflow-x-scroll image-preview py-5 px-5">
+            {props.children}
+          </div>
 
-      <p className="my-10">{props.data.long_desc}</p>
-      <div className="flex flex-row gap-3">
-        <Control>
-          <Heart className="stroke-[rgba(254,254,254,.3)] h-[1.5em]"></Heart>
-          <p className="">{props.data.likes}</p>
-        </Control>
-        <Control>
-          <p>Online Demo</p>
-        </Control>
-      </div>
-    </div>
+          <p className="my-10">{props.data.long_desc}</p>
+          <div className="flex flex-row gap-3">
+            <Control>
+              <Heart className="stroke-[rgba(254,254,254,.3)] h-[1.5em]"></Heart>
+              <p className="">{props.data.likes}</p>
+            </Control>
+            <Control>
+              <p>Online Demo</p>
+            </Control>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

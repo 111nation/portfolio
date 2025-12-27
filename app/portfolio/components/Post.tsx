@@ -32,7 +32,7 @@ function Post(props: PostProps) {
   const router = useRouter();
   return (
     <div
-      className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative"
+      className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative cursor-pointer"
       onClick={() => router.push(`/portfolio/${props.data.doc_id}`)}
     >
       <Control className="aspect-1/1 rounded-full flex justify-center items-center p-0 absolute right-5 top-5">
