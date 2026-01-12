@@ -46,12 +46,17 @@ function Project() {
         <PostView data={post}>
           {post &&
             post.images.map((img: string, i: number) => (
-              <img
-                className="rounded-lg h-[90%] w-auto aspect-auto hover:scale-105 duration-100 hover:border-2 hover:border-purple-500"
-                src={img}
+              <div
                 key={i}
-                alt="Images attached to project"
-              />
+                className="h-full w-fit hover:scale-105 overflow-hidden duration-100 hover:border-2 hover:border-purple-500 rounded-lg"
+              >
+                <img
+                  className="h-full object-cover aspect-auto"
+                  src={img}
+                  key={i}
+                  alt="Images attached to project"
+                />
+              </div>
             ))}
         </PostView>
       </div>

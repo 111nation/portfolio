@@ -98,6 +98,7 @@ function NewPost() {
     const heading = formData.get("heading");
     const short_desc = formData.get("short-desc");
     const long_desc = formData.get("long-desc");
+    const url = formData.get("url") || "";
 
     if (
       typeof heading !== "string" ||
@@ -111,7 +112,7 @@ function NewPost() {
       return;
     }
 
-    UploadPost(heading, short_desc, [...images], long_desc)
+    UploadPost(heading, short_desc, [...images], long_desc, url)
       .then(() => {
         setHeading("Success");
         setMessage("Project successfully uploaded!");
@@ -152,6 +153,7 @@ function NewPost() {
         />
 
         <TextEdit placeholder="Short Description" name="short-desc" required />
+        <TextEdit placeholder="URL" name="url" />
 
         <InsertImage
           onDelete={onDeleteImage}

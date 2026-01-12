@@ -1,11 +1,15 @@
 "use client";
 import { Comment, Heart, Bin } from "@/app/assets/icons";
+import Button from "@/app/components/Button";
+import LikeButton from "@/app/components/LikeButton";
+import PopUp from "@/app/components/PopUp";
 import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { MouseEvent, ReactNode, useState } from "react";
 
 interface ControlProps {
   children?: ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 const Control = (props: ControlProps) => {
@@ -17,6 +21,9 @@ const Control = (props: ControlProps) => {
       }
       onClick={(event) => {
         event.stopPropagation();
+        if (props.onClick) {
+          props.onClick();
+        }
       }}
     >
       {props.children}
@@ -26,38 +33,64 @@ const Control = (props: ControlProps) => {
 
 interface PostProps {
   data?: any;
+  onDelete: () => void;
 }
 
 function Post(props: PostProps) {
+  const [confirm, setConfirm] = useState<boolean>(false);
+
   const router = useRouter();
+
   return (
-    <div
-      className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative cursor-pointer"
-      onClick={() => router.push(`/portfolio/${props.data.doc_id}`)}
-    >
-      <Control className="aspect-1/1 rounded-full flex justify-center items-center p-0 absolute right-5 top-5">
-        <Bin className="stroke-[rgba(254,254,254,.3)] h-[1em] scale-120 m-0"></Bin>
-      </Control>
+    <>
+      {confirm && (
+        <PopUp heading="Delete Project">
+          You are about to delete a project
+          <div className="flex flex-row gap-2 w-full px-3 sm:px-10">
+            <Button
+              onClick={() => {
+                setConfirm(false);
+                props.onDelete();
+              }}
+              className="mt-4 w-[50%] font-bold bg-gradient text-background"
+            >
+              Delete
+            </Button>
+            <Button onClick={() => setConfirm(false)} className="mt-4 w-[50%]">
+              Close
+            </Button>
+          </div>
+        </PopUp>
+      )}
 
-      <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
-        3hr. ago
-      </p>
-      <h3 className="text-gradient font-bold text-xl mt-3 mb-2">
-        {props.data.heading}
-      </h3>
-      <p className="sm:w-[50%] my-2 mb-15">{props.data.short_desc}</p>
+      {/* Content */}
+      <div
+        className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative cursor-pointer"
+        onClick={() => router.push(`/portfolio/${props.data.doc_id}`)}
+      >
+        <Control
+          onClick={() => setConfirm(true)}
+          className="aspect-1/1 rounded-full flex justify-center items-center p-0 absolute right-5 top-5"
+        >
+          <Bin className="stroke-[rgba(254,254,254,.3)] h-[1em] scale-120 m-0"></Bin>
+        </Control>
 
-      <div className="flex flex-row gap-3">
-        <Control>
-          <Heart className="stroke-[rgba(254,254,254,.3)] h-[1.5em]"></Heart>
-          <p className="">{props.data.likes}</p>
-        </Control>
-        <Control>
-          <Comment className="fill-[rgba(254,254,254,.3)] h-[1.5em]"></Comment>
-          <p>{props.data.comments}</p>
-        </Control>
+        <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
+          3hr. ago
+        </p>
+        <h3 className="text-gradient font-bold text-xl mt-3 mb-2">
+          {props.data.heading}
+        </h3>
+        <p className="sm:w-[50%] my-2 mb-4">{props.data.short_desc}</p>
+
+        <div className="flex flex-row gap-3">
+          <LikeButton
+            likes={props.data.likes}
+            doc_id={props.data.doc_id}
+          ></LikeButton>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

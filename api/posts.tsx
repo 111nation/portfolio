@@ -1,17 +1,68 @@
 import { db, storage } from "@/app/assets/firebase";
 import {
+  addDoc,
   collection,
+  deleteDoc,
   doc,
   getDoc,
   getDocs,
   limit,
   query,
-} from "firebase/firestore/lite";
-import { ref } from "firebase/storage";
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+
+export async function UploadPost(
+  heading: string,
+  short_desc: string,
+  images: Blob[],
+  long_desc: string,
+  url: string,
+) {
+  try {
+    const randomImageUUIDs = images.map(() => crypto.randomUUID());
+
+    // Upload document
+    const docRef = await addDoc(collection(db, "projects"), {
+      heading: heading,
+      short_desc: short_desc,
+      long_desc: long_desc,
+      likes: 0,
+      comments: 0,
+      date: serverTimestamp(),
+      images: [...randomImageUUIDs],
+      url: url,
+    });
+
+    // Upload Images
+    const uploadPromises: Promise<any>[] = [];
+
+    images.forEach((img, index) => {
+      const storageRef = ref(
+        storage,
+        `images/${docRef.id}/${randomImageUUIDs[index]}`,
+      );
+      uploadPromises.push(
+        uploadBytes(storageRef, img, { contentType: img.type }),
+      );
+    });
+
+    await Promise.all(uploadPromises);
+  } catch (error: any) {
+    throw `Failed to upload project: ${error.message}`;
+  }
+}
 
 export async function GetPosts() {
   try {
-    const q = query(collection(db, "projects"), limit(100));
+    const collRef = collection(db, "projects");
+    const q = query(collRef, limit(100));
     const querySnap = await getDocs(q);
     const posts = querySnap.docs.map((doc) => ({
       ...doc.data(),
@@ -39,17 +90,56 @@ export async function GetPostById(doc_id: string) {
   }
 }
 
-export async function GetImagesByPostId(doc_id: string) {
+export async function GetImagesByPostId(doc_id: string, imageUIDs: string[]) {
   try {
     const pathReference = ref(storage, `images/${doc_id}`);
+
+    const imageURLs = await Promise.all(
+      imageUIDs.map((uid) =>
+        getDownloadURL(ref(storage, `${pathReference}/${uid}`)),
+      ),
+    );
+
+    return imageURLs;
+  } catch (error: any) {
+    throw `Failed to retrieve the project images: ${error.message}`;
+  }
+}
+
+export async function DeletePostById(doc_id: string, imageUIDs: string[]) {
+  try {
+    // Delete all images
+    const pathReference = ref(storage, `images/${doc_id}`);
+
+    const imageURLs = await Promise.all(
+      imageUIDs.map((uid) =>
+        deleteObject(ref(storage, `${pathReference}/${uid}`)),
+      ),
+    );
+
+    // Delete all documents
+    const docRef = doc(db, "projects", doc_id);
+    await deleteDoc(docRef);
+  } catch (error: any) {
+    throw `Failed to delete project: ${error.message}`;
+  }
+}
+
+export async function UpdateLikeCount(doc_id: string, like: boolean) {
+  try {
+    const docRef = doc(db, "projects", doc_id);
     const docSnap = await getDoc(docRef);
 
-    if (docSnap.exists()) {
-      return { ...docSnap.data(), doc_id: docRef.id };
-    } else {
-      throw ``;
-    }
-  } catch (_) {
-    throw `Failed to retrieve data`;
+    if (!docSnap.exists()) throw { message: "Failed to retrieve data" };
+
+    const likes = Math.max(0, docSnap.data().likes + (like ? +1 : -1));
+
+    await updateDoc(docRef, {
+      likes: likes,
+    });
+
+    return likes;
+  } catch (err: any) {
+    throw `Failed to like post: ${err.message}`;
   }
 }
