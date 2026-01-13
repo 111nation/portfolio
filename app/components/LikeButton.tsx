@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Heart } from "../assets/icons";
-import { LikePostById } from "@/api/posts";
+import { LikePostById, UpdateLikeCount, UploadPost } from "@/api/posts";
 
 interface LikeProps {
   doc_id: string;
@@ -11,25 +11,27 @@ function LikeButton(props: LikeProps) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikeCount] = useState(0);
 
-  const setLikeStatus = () => {
-    // Check if post already liked using local storage
-    setLiked(!!localStorage.getItem(props.doc_id));
-  };
+  const likePost = async () => {
+    try {
+      const likes = await UpdateLikeCount(props.doc_id, !liked);
+      const prevState = liked;
+      setLiked(!prevState);
+      setLikeCount(likes);
 
-  const likePost = () => {
-    if (liked) {
-      localStorage.removeItem(props.doc_id);
-      setLiked(false);
-    } else {
-      localStorage.setItem(props.doc_id, "1");
-      setLiked(true);
+      if (liked) {
+        localStorage.removeItem(props.doc_id);
+      } else {
+        localStorage.setItem(props.doc_id, "1");
+      }
+    } catch (error: any) {
+      console.error(error.message);
     }
-    setLikeCount(props.likes);
   };
 
   useEffect(() => {
     // Check if post already liked using local storage
     setLiked(!!localStorage.getItem(props.doc_id));
+    setLikeCount(props.likes);
   }, []);
 
   const likedStyle: string =
@@ -46,9 +48,13 @@ function LikeButton(props: LikeProps) {
       }}
       className={liked ? likedStyle : unlikedStyle}
     >
-      <Heart
-        className={`${liked ? `fill-background stroke-purple-500` : `stroke-[rgba(254, 254, 254, 0.3)]`} h-[1.5em]`}
-      ></Heart>
+      {liked && (
+        <Heart className="text-purple-500 fill-purple-500 stroke-purple-500 h-[1.5em]"></Heart>
+      )}
+
+      {liked === false && (
+        <Heart className="fill-none stroke-[rgba(254, 254, 254, 0.3)] h-[1.5em]"></Heart>
+      )}
       <p className="">{likes}</p>
     </div>
   );

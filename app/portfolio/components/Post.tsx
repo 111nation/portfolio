@@ -3,6 +3,7 @@ import { Comment, Heart, Bin } from "@/app/assets/icons";
 import Button from "@/app/components/Button";
 import LikeButton from "@/app/components/LikeButton";
 import PopUp from "@/app/components/PopUp";
+import TimeStamp from "@/app/components/TimeStamp";
 import { useRouter } from "next/navigation";
 import { MouseEvent, ReactNode, useState } from "react";
 
@@ -75,9 +76,7 @@ function Post(props: PostProps) {
           <Bin className="stroke-[rgba(254,254,254,.3)] h-[1em] scale-120 m-0"></Bin>
         </Control>
 
-        <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
-          3hr. ago
-        </p>
+        <TimeStamp date={props.data.date}></TimeStamp>
         <h3 className="text-gradient font-bold text-xl mt-3 mb-2">
           {props.data.heading}
         </h3>
