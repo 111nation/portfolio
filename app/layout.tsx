@@ -24,7 +24,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${inter.variable}`}>
-      <body className="antialiased bg-color-background">{children}</body>
+      <body className="antialiased bg-color-background">
+        <div id="root">{children}</div>
+        <footer className="bg-foreground-50 text-foreground-100 flex justify-center text-sm py-3 border-t-1 border-foreground-100 w-screen">
+          @2025 All Rights Reserved | Elevate your brand
+        </footer>
+      </body>
     </html>
   );
 }

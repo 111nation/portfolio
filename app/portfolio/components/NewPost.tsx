@@ -5,6 +5,7 @@ import Button from "@/app/components/Button";
 import { useState } from "react";
 import { UploadPost } from "@/api/posts";
 import PopUp from "@/app/components/PopUp";
+import { auth } from "@/app/assets/firebase";
 
 interface ImageProps {
   src: string;
@@ -71,8 +72,8 @@ const InsertImage = (props: InsertProps) => {
 function NewPost() {
   const [images, setImages] = useState<Blob[]>([]);
   const [show, setShowPopUp] = useState<bool>(false);
-  const [message, setMessage] = useState<string>();
-  const [heading, setHeading] = useState<string>();
+  const [message, setMessage] = useState<string>("");
+  const [heading, setHeading] = useState<string>("");
 
   const onImageSelect = (event) => {
     const files: Blob[] = event.target.files;
@@ -112,16 +113,23 @@ function NewPost() {
       return;
     }
 
-    UploadPost(heading, short_desc, [...images], long_desc, url)
+    UploadPost(
+      auth.currentUser,
+      heading,
+      short_desc,
+      [...images],
+      long_desc,
+      url.toString(),
+    )
       .then(() => {
-        setHeading("Success");
-        setMessage("Project successfully uploaded!");
+        setHeading("Uploaded");
+        setMessage("Successfully uploaded project");
         setShowPopUp(true);
       })
       .catch((e: any) => {
         console.log(e);
         setHeading("Error");
-        setMessage("Error uploading project: " + e.message);
+        setMessage(e.message);
         setShowPopUp(true);
       });
   };
@@ -129,13 +137,15 @@ function NewPost() {
   return (
     <>
       {show && (
-        <PopUp heading="Uploaded">
-          Successfully uploaded project
+        <PopUp heading={heading}>
+          <div className="flex text-center justify-center align-center w-[95%] m-auto">
+            {message}
+          </div>
           <Button
             onClick={() => {
               setShowPopUp(false);
             }}
-            className="mt-4 w-[50%]"
+            className="mt-2 w-[50%]"
           >
             Close
           </Button>

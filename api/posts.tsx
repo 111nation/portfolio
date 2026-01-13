@@ -17,14 +17,22 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
+import { IsAdmin } from "./login";
 
 export async function UploadPost(
+  currentUser: any,
   heading: string,
   short_desc: string,
   images: Blob[],
   long_desc: string,
   url: string,
 ) {
+  if (!currentUser || !IsAdmin(currentUser.uid)) {
+    throw {
+      message: "Failed to upload project: User permissions are insufficient",
+    };
+  }
+
   try {
     const randomImageUUIDs = images.map(() => crypto.randomUUID());
 
@@ -106,7 +114,17 @@ export async function GetImagesByPostId(doc_id: string, imageUIDs: string[]) {
   }
 }
 
-export async function DeletePostById(doc_id: string, imageUIDs: string[]) {
+export async function DeletePostById(
+  currentUser: any,
+  doc_id: string,
+  imageUIDs: string[],
+) {
+  if (!currentUser || !IsAdmin(currentUser.uid)) {
+    throw {
+      message: "Failed to delete project: User permissions are insufficient",
+    };
+  }
+
   try {
     // Delete all images
     const pathReference = ref(storage, `images/${doc_id}`);

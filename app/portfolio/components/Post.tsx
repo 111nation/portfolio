@@ -1,11 +1,13 @@
 "use client";
+import { IsAdmin } from "@/api/login";
+import { auth } from "@/app/assets/firebase";
 import { Comment, Heart, Bin } from "@/app/assets/icons";
 import Button from "@/app/components/Button";
 import LikeButton from "@/app/components/LikeButton";
 import PopUp from "@/app/components/PopUp";
 import TimeStamp from "@/app/components/TimeStamp";
 import { useRouter } from "next/navigation";
-import { MouseEvent, ReactNode, useState } from "react";
+import { MouseEvent, ReactNode, useEffect, useState } from "react";
 
 interface ControlProps {
   children?: ReactNode;
@@ -39,8 +41,14 @@ interface PostProps {
 
 function Post(props: PostProps) {
   const [confirm, setConfirm] = useState<boolean>(false);
+  const [admin, setAdmin] = useState<boolean>(false);
 
   const router = useRouter();
+  useEffect(() => {
+    if (auth.currentUser) {
+      IsAdmin(auth.currentUser.uid).then((res) => setAdmin(res));
+    }
+  }, []);
 
   return (
     <>
@@ -69,12 +77,14 @@ function Post(props: PostProps) {
         className="border-1 border-foreground-200 rounded-2xl py-4 px-7 hover:scale-101 active:scale-100.005 duration-300 ease-in-out select-none relative cursor-pointer"
         onClick={() => router.push(`/portfolio/${props.data.doc_id}`)}
       >
-        <Control
-          onClick={() => setConfirm(true)}
-          className="aspect-1/1 rounded-full flex justify-center items-center p-0 absolute right-5 top-5"
-        >
-          <Bin className="stroke-[rgba(254,254,254,.3)] h-[1em] scale-120 m-0"></Bin>
-        </Control>
+        {admin && (
+          <Control
+            onClick={() => setConfirm(true)}
+            className="aspect-1/1 rounded-full flex justify-center items-center p-0 absolute right-5 top-5"
+          >
+            <Bin className="stroke-[rgba(254,254,254,.3)] h-[1em] scale-120 m-0"></Bin>
+          </Control>
+        )}
 
         <TimeStamp date={props.data.date}></TimeStamp>
         <h3 className="text-gradient font-bold text-xl mt-3 mb-2">

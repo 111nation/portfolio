@@ -15,7 +15,6 @@ export default function Home() {
       <Overview></Overview>
       <Idea></Idea>
       <Contact></Contact>
-      <Footer></Footer>
     </>
   );
 }

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { DeletePostById, GetPosts } from "@/api/posts";
 import PopUp from "@/app/components/PopUp";
 import Button from "@/app/components/Button";
+import { auth } from "@/app/assets/firebase";
+import { Spinner } from "@/app/assets/icons";
 
 function List() {
   const [posts, setPosts] = useState<any>([]);
@@ -24,7 +26,7 @@ function List() {
   const onPostDelete = async (post: any, index: number) => {
     if (index < 0) return;
     try {
-      await DeletePostById(post.doc_id, post.images);
+      await DeletePostById(auth.currentUser, post.doc_id, post.images);
       const temp = [...posts];
       temp.splice(index, 1);
       setPosts(temp);
@@ -54,7 +56,14 @@ function List() {
           </Button>
         </PopUp>
       )}
-      <div className="flex flex-col sm:px-10 px-5 my-20 gap-5 sm:max-w-200 sm:mx-auto">
+
+      {posts.length <= 0 && (
+        <div className="m-auto flex flex-row gap-5 my-30 align-center justify-center">
+          <Spinner className="h-[2em] text-gradient"></Spinner>
+        </div>
+      )}
+
+      <div className="flex flex-col sm:px-10 px-5 my-15 gap-5 sm:max-w-200 sm:mx-auto">
         {posts.map((post: any, index: number) => (
           <Post
             key={index}

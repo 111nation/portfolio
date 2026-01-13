@@ -1,6 +1,8 @@
 "use client";
-import { GitHub, Comment, Heart } from "@/app/assets/icons";
+import { GitHub, Comment, Heart, Spinner } from "@/app/assets/icons";
+import ImageViewer from "@/app/components/ImageViewer";
 import LikeButton from "@/app/components/LikeButton";
+import TimeStamp from "@/app/components/TimeStamp";
 import { ReactNode } from "react";
 
 interface ControlProps {
@@ -31,17 +33,21 @@ interface PostViewInterface {
 function PostView(props: PostViewInterface) {
   return (
     <>
+      {!props.data && (
+        <div className="w-screen -z-0 h-screen top-0 left-0 fixed flex align-center justify-center flex-col">
+          <Spinner className="h-[2em] text-gradient"></Spinner>
+        </div>
+      )}
+
       {props.data && (
         <div className="border-1 border-foreground-100  rounded-2xl py-4 px-7 my-10 sm:max-w-275 sm:mx-auto">
-          <p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">
-            3hr. ago
-          </p>
-          <h3 className="text-gradient font-bold text-2xl mt-3 mb-2">
+          <TimeStamp date={props.data.date}></TimeStamp>
+          <h3 className="text-gradient font-dm font-bold text-2xl mt-3 mb-2">
             {props.data.heading}
           </h3>
           <p className="my-5 text-lg">{props.data.short_desc}</p>
 
-          <div className="flex flex-col flex-wrap gap-5 my-10 w-full h-75 flex-nowrap overflow-x-scroll image-preview py-5 px-5 items-center justify-center">
+          <div className="flex flex-col flex-wrap gap-5 my-10 w-full h-75 flex-nowrap overflow-x-scroll image-preview py-5 px-0 items-center justify-center">
             {props.children}
           </div>
 
