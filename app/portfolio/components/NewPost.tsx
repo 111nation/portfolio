@@ -71,11 +71,11 @@ const InsertImage = (props: InsertProps) => {
 
 function NewPost() {
   const [images, setImages] = useState<Blob[]>([]);
-  const [show, setShowPopUp] = useState<bool>(false);
+  const [show, setShowPopUp] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [heading, setHeading] = useState<string>("");
 
-  const onImageSelect = (event) => {
+  const onImageSelect = (event: any) => {
     const files: Blob[] = event.target.files;
     if (files && files[0]) {
       const temp: Blob[] = [...files, ...images];

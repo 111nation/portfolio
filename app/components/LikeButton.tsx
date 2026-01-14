@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Heart } from "../assets/icons";
-import { LikePostById, UpdateLikeCount, UploadPost } from "@/app/lib/posts";
+import { UpdateLikeCount, UploadPost } from "@/app/lib/posts";
 
 interface LikeProps {
   doc_id: string;
