@@ -9,11 +9,13 @@ import { IsAdmin } from "@/app/lib/login";
 import { auth } from "../assets/firebase";
 
 function Portfolio() {
-  const [admin, setAdmin] = useState<boolean>(false);
+  const [admin, setAdmin] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (auth.currentUser) {
       IsAdmin(auth.currentUser.uid).then((res) => setAdmin(res));
+    } else {
+      setAdmin(false);
     }
   }, []);
 
