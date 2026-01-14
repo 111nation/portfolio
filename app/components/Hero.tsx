@@ -1,8 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import ClearButton from "./ClearButton";
 import Tag from "./Tag";
 
 function Hero() {
+  const router = useRouter();
+
   return (
     <div className="bg-foreground-50 border-1 border-foreground-200 my-3 mx-0 sm:mx-4 lg:my-5 lg:mx-10 sm:rounded-xl px-4 sm:px-10 py-8 xl:py-20 xl:px-25 2xl:mx-auto relative block lg:m-auto max-w-350">
       <img
@@ -30,14 +33,17 @@ function Hero() {
       </div>
 
       <div className="flex flex-row justify-center sm:justify-start gap-4 sm:gap-2 z-2">
-        <ClearButton className="px-7 py-1 sm:px-4 cursor-pointer">
+        <ClearButton
+          className="px-7 py-1 sm:px-4 cursor-pointer"
+          onClick={() => router.push("/portfolio")}
+        >
           <p className="text-gradient text-xl sm:text-lg font-medium my-1">
             Portfolio
           </p>
         </ClearButton>
 
         <ClearButton
-          className="px-4 cursor-pointer"
+          className="px-4 cursor-pointer z-5"
           onClick={() =>
             document
               .querySelector("#contact")

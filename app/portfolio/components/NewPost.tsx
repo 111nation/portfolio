@@ -114,7 +114,7 @@ function NewPost() {
     }
 
     UploadPost(
-      auth.currentUser,
+      auth.currentUser?.uid,
       heading,
       short_desc,
       [...images],

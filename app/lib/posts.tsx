@@ -22,14 +22,14 @@ import {
 import { IsAdmin } from "./login";
 
 export async function UploadPost(
-  currentUser: any,
+  currentUserUid: any,
   heading: string,
   short_desc: string,
   images: Blob[],
   long_desc: string,
   url: string,
 ) {
-  if (!currentUser || !IsAdmin(currentUser.uid)) {
+  if (!currentUserUid || !(await IsAdmin(currentUserUid))) {
     throw {
       message: "Failed to upload project: User permissions are insufficient",
     };
@@ -117,11 +117,11 @@ export async function GetImagesByPostId(doc_id: string, imageUIDs: string[]) {
 }
 
 export async function DeletePostById(
-  currentUser: any,
+  currentUserUid: any,
   doc_id: string,
   imageUIDs: string[],
 ) {
-  if (!currentUser || !IsAdmin(currentUser.uid)) {
+  if (!currentUserUid || !(await IsAdmin(currentUserUid))) {
     throw {
       message: "Failed to delete project: User permissions are insufficient",
     };

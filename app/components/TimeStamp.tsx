@@ -5,8 +5,6 @@ interface TimeStampProps {
   date: Timestamp;
 }
 
-<p className="text-[rgba(254,254,255,0.25)] font-inter text-xs">3hr. ago</p>;
-
 const MINUTES = 60;
 const HOURS = MINUTES * 60;
 const DAYS = HOURS * 24;

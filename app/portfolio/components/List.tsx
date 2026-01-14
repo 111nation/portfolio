@@ -29,7 +29,8 @@ function List() {
   const onPostDelete = async (post: any, index: number) => {
     if (index < 0) return;
     try {
-      await DeletePostById(auth.currentUser, post.doc_id, post.images);
+      await DeletePostById(auth.currentUser?.uid, post.doc_id, post.images);
+      console.log("HEYYYYYY");
       const temp = [...posts];
       temp.splice(index, 1);
       setPosts(temp);
@@ -38,8 +39,9 @@ function List() {
       setMessage("Project has been deleted");
       setShowPopUp(true);
     } catch (err: any) {
+      console.error(err);
       setHeading("Error");
-      setMessage(err);
+      setMessage("Failed to delete project");
       setShowPopUp(true);
     }
   };
@@ -48,7 +50,7 @@ function List() {
     <>
       {show && (
         <PopUp heading={heading}>
-          {message}
+          <div className="text-center w-[90%]">{message}</div>
           <Button
             onClick={() => {
               setShowPopUp(false);
