@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Post from "./Post";
 import { useEffect, useState } from "react";
-import { DeletePostById, GetPosts } from "@/api/posts";
+import { DeletePostById, GetPosts } from "@/app/lib/posts";
 import PopUp from "@/app/components/PopUp";
 import Button from "@/app/components/Button";
 import { auth } from "@/app/assets/firebase";

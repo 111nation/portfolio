@@ -3,7 +3,7 @@ import TextEdit from "@/app/components/TextEdit";
 import { Bin, ImageIcon } from "../../assets/icons";
 import Button from "@/app/components/Button";
 import { useState } from "react";
-import { UploadPost } from "@/api/posts";
+import { UploadPost } from "@/app/lib/posts";
 import PopUp from "@/app/components/PopUp";
 import { auth } from "@/app/assets/firebase";
 

@@ -1,5 +1,5 @@
 "use client";
-import { IsAdmin } from "@/api/login";
+import { IsAdmin } from "@/app/lib/login";
 import { auth } from "@/app/assets/firebase";
 import { Comment, Heart, Bin } from "@/app/assets/icons";
 import Button from "@/app/components/Button";

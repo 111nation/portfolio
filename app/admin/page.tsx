@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Button from "../components/Button";
 import TextEdit from "../components/TextEdit";
-import { LogInFirebase } from "@/api/login";
+import { LogInFirebase } from "@/app/lib/login";
 import { useRouter } from "next/navigation";
 
 function Admin() {

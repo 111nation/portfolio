@@ -5,7 +5,7 @@ import PortfolioHero from "./components/Hero";
 import List from "./components/List";
 import PortfolioNavbar from "./components/NavBar";
 import NewPost from "./components/NewPost";
-import { IsAdmin } from "@/api/login";
+import { IsAdmin } from "@/app/lib/login";
 import { auth } from "../assets/firebase";
 
 function Portfolio() {
