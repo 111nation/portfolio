@@ -79,7 +79,7 @@ export async function GetPosts() {
       doc_id: doc.id,
     }));
 
-    return posts;
+    return JSON.stringify(posts);
   } catch (err: any) {
     throw `Failed to retrieve posts: ${err.message}`;
   }
@@ -91,7 +91,7 @@ export async function GetPostById(doc_id: string) {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      return { ...docSnap.data(), doc_id: docRef.id };
+      return JSON.stringify({ ...docSnap.data(), doc_id: docRef.id });
     } else {
       throw ``;
     }
@@ -110,7 +110,7 @@ export async function GetImagesByPostId(doc_id: string, imageUIDs: string[]) {
       ),
     );
 
-    return imageURLs;
+    return JSON.stringify(imageURLs);
   } catch (error: any) {
     throw `Failed to retrieve the project images: ${error.message}`;
   }

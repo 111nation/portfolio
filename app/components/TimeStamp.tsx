@@ -18,10 +18,8 @@ function TimeStamp({ date }: TimeStampProps) {
   useEffect(() => {
     const getStampString = (): string => {
       // Duration in seconds and truncated using ~~
-      const duration: number = ~~(
-        (Timestamp.now().toMillis() - date.toMillis()) /
-        1000
-      );
+      const currentTime = Timestamp.now();
+      const duration: number = ~~(currentTime.seconds - date.seconds);
 
       if (duration >= WEEKS) {
         return `${~~(duration / WEEKS)} w. ago`;

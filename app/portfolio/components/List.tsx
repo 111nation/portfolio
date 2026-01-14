@@ -17,7 +17,10 @@ function List() {
   useEffect(() => {
     // Retrieve posts
     GetPosts()
-      .then((result) => setPosts([...result]))
+      .then((res) => {
+        const result = JSON.parse(res);
+        setPosts([...result]);
+      })
       .catch((err) => {
         console.error(err);
       });

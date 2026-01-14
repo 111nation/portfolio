@@ -3,7 +3,7 @@ import Image from "next/image";
 import PortfolioNavbar from "../components/NavBar";
 import PostView from "../components/PostView";
 import { useEffect, useState } from "react";
-import { GetImagesByPostId, GetPostById } from "@/api/posts";
+import { GetImagesByPostId, GetPostById } from "@/app/lib/posts";
 import { useParams } from "next/navigation";
 import ImageViewer from "@/app/components/ImageViewer";
 
@@ -29,8 +29,8 @@ function Project() {
   const { slug } = params;
 
   const loadPost = async () => {
-    const post: any = await GetPostById(slug);
-    const images = await GetImagesByPostId(slug, [...post.images]);
+    const post: any = JSON.parse(await GetPostById(slug));
+    const images = JSON.parse(await GetImagesByPostId(slug, [...post.images]));
 
     const postResult = { ...post, images: [...images] };
 
@@ -38,9 +38,9 @@ function Project() {
   };
 
   useEffect(() => {
-    loadPost()
-      .then((res: any) => setPost(res))
-      .catch((err) => {});
+    loadPost().then((res: any) => {
+      setPost(res);
+    });
   }, []);
   return (
     <>
