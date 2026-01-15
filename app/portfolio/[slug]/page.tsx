@@ -44,7 +44,7 @@ function Project() {
   }, []);
   return (
     <>
-      <PortfolioNavbar></PortfolioNavbar>
+      <PortfolioNavbar portfolio></PortfolioNavbar>
       {view && (
         <ImageViewer
           onClose={() => {

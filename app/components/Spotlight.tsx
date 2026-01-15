@@ -46,15 +46,24 @@ function Spotlight() {
           Config.vim
         </Card>
 		*/}
-        <Card category="Social Media App" src="youboard-spotlight.png">
-          youboard.
-        </Card>
-        <Card category="AI Studying Platform" src="learnai-spotlight.png">
-          LearnAI
-        </Card>
-        <Card category="E-commerce" src="simracing-spotlight.png">
-          Sim Racing Wheels
-        </Card>
+
+        <Link href="/portfolio/36JvKz3E4tGiNA06ulZZ" target="_blank">
+          <Card category="Social Media App" src="youboard-spotlight.png">
+            youboard.
+          </Card>
+        </Link>
+
+        <Link href="/portfolio/rm2hP3e1RFB77BLLwEqB" target="_blank">
+          <Card category="AI Studying Platform" src="learnai-spotlight.png">
+            LearnAI
+          </Card>
+        </Link>
+
+        <Link href="/portfolio/tSbPZRWPyrcBaJtrwWNS" target="_blank">
+          <Card category="E-commerce" src="simracing-spotlight.png">
+            Sim Racing Wheels
+          </Card>
+        </Link>
         <Link href="/portfolio" target="_blank">
           <Card category="View My Portfolio">View More</Card>
         </Link>
