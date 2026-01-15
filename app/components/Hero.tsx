@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import ClearButton from "./ClearButton";
 import Tag from "./Tag";
+import Link from "next/link";
 
 function Hero() {
   const router = useRouter();
@@ -33,14 +34,13 @@ function Hero() {
       </div>
 
       <div className="flex flex-row justify-center sm:justify-start gap-4 sm:gap-2 z-2">
-        <ClearButton
-          className="px-7 py-1 sm:px-4 cursor-pointer"
-          onClick={() => router.push("/portfolio")}
-        >
-          <p className="text-gradient text-xl sm:text-lg font-medium my-1">
-            Portfolio
-          </p>
-        </ClearButton>
+        <Link href="/portfolio" target="_blank">
+          <ClearButton className="px-7 py-1 sm:px-4 cursor-pointer">
+            <p className="text-gradient text-xl sm:text-lg font-medium my-1">
+              Portfolio
+            </p>
+          </ClearButton>
+        </Link>
 
         <ClearButton
           className="px-4 cursor-pointer z-5"

@@ -69,7 +69,11 @@ const InsertImage = (props: InsertProps) => {
   );
 };
 
-function NewPost() {
+interface NewPostProps {
+  onSubmit?: () => void;
+}
+
+function NewPost(props: NewPostProps) {
   const [images, setImages] = useState<Blob[]>([]);
   const [show, setShowPopUp] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -91,7 +95,7 @@ function NewPost() {
     setImages(temp);
   };
 
-  const onSubmit = (event: any) => {
+  const onSubmit = async (event: any) => {
     event.preventDefault();
     const form = event.target;
     const formData: FormData = new FormData(form);
@@ -113,11 +117,25 @@ function NewPost() {
       return;
     }
 
+    // Convert all images to base64
+    const base64ImagesPromises = images.map((img) => {
+      return new Promise<string>((resolve) => {
+        const reader: FileReader = new FileReader();
+        reader.readAsDataURL(img);
+        reader.onloadend = function () {
+          const base64: string = reader.result as string;
+          resolve(base64);
+        };
+      });
+    });
+
+    const base64Images: string[] = await Promise.all(base64ImagesPromises);
+
     UploadPost(
       auth.currentUser?.uid,
       heading,
       short_desc,
-      [...images],
+      [...base64Images],
       long_desc,
       url.toString(),
     )
@@ -125,9 +143,10 @@ function NewPost() {
         setHeading("Uploaded");
         setMessage("Successfully uploaded project");
         setShowPopUp(true);
+        if (props.onSubmit) props.onSubmit();
       })
       .catch((e: any) => {
-        console.log(e);
+        console.error(e);
         setHeading("Error");
         setMessage(e.message);
         setShowPopUp(true);

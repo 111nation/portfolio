@@ -8,6 +8,7 @@ import PopUp from "@/app/components/PopUp";
 import TimeStamp from "@/app/components/TimeStamp";
 import { useRouter } from "next/navigation";
 import { MouseEvent, ReactNode, useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 
 interface ControlProps {
   children?: ReactNode;
@@ -41,13 +42,14 @@ interface PostProps {
 
 function Post(props: PostProps) {
   const [confirm, setConfirm] = useState<boolean>(false);
-  const [admin, setAdmin] = useState<boolean>(false);
+  const [admin, setAdmin] = useState<boolean | null>(null);
 
   const router = useRouter();
   useEffect(() => {
-    if (auth.currentUser) {
-      IsAdmin(auth.currentUser.uid).then((res) => setAdmin(res));
-    }
+    onAuthStateChanged(auth, async (user) => {
+      // Determine when to show admin controls
+      setAdmin(user && (await IsAdmin(user.uid)));
+    });
   }, []);
 
   return (

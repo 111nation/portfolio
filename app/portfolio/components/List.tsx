@@ -8,7 +8,12 @@ import Button from "@/app/components/Button";
 import { auth } from "@/app/assets/firebase";
 import { Spinner } from "@/app/assets/icons";
 
-function List() {
+interface ListProps {
+  reload?: boolean;
+}
+
+function List(props: ListProps) {
+  const [load, setLoadState] = useState<boolean>();
   const [posts, setPosts] = useState<any>([]);
   const [heading, setHeading] = useState<string>("");
   const [message, setMessage] = useState<string>("");
@@ -16,13 +21,16 @@ function List() {
 
   useEffect(() => {
     // Retrieve posts
+    setLoadState(true);
     GetPosts()
       .then((res) => {
         const result = JSON.parse(res);
         setPosts([...result]);
+        setLoadState(false);
       })
       .catch((err) => {
         console.error(err);
+        setLoadState(false);
       });
   }, []);
 
@@ -30,7 +38,6 @@ function List() {
     if (index < 0) return;
     try {
       await DeletePostById(auth.currentUser?.uid, post.doc_id, post.images);
-      console.log("HEYYYYYY");
       const temp = [...posts];
       temp.splice(index, 1);
       setPosts(temp);
@@ -62,7 +69,7 @@ function List() {
         </PopUp>
       )}
 
-      {posts.length <= 0 && (
+      {load && (
         <div className="m-auto flex flex-row gap-5 my-30 align-center justify-center">
           <Spinner className="h-[2em] text-gradient"></Spinner>
         </div>

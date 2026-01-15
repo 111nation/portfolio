@@ -79,6 +79,16 @@ pre {
   border-radius: 5px;
 }
 
+html::-webkit-scrollbar {
+  width: 5px;
+}
+
+html::-webkit-scrollbar-thumb {
+  width: 100%;
+  background: var(--color-foreground-100);
+  border-radius: 5px;
+}
+
 .stroke-gradient {
   stroke: var(--color-gradient);
 }

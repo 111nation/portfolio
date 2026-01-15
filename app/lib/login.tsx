@@ -8,7 +8,7 @@ export async function LogInFirebase(email: string, password: string) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error: any) {
-    throw error.code;
+    throw error.message;
   }
 }
 

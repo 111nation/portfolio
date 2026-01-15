@@ -18,6 +18,7 @@ import {
   getDownloadURL,
   ref,
   uploadBytes,
+  uploadString,
 } from "firebase/storage";
 import { IsAdmin } from "./login";
 
@@ -25,7 +26,7 @@ export async function UploadPost(
   currentUserUid: any,
   heading: string,
   short_desc: string,
-  images: Blob[],
+  base64Images: string[],
   long_desc: string,
   url: string,
 ) {
@@ -36,7 +37,7 @@ export async function UploadPost(
   }
 
   try {
-    const randomImageUUIDs = images.map(() => crypto.randomUUID());
+    const randomImageUUIDs = base64Images.map(() => crypto.randomUUID());
 
     // Upload document
     const docRef = await addDoc(collection(db, "projects"), {
@@ -50,17 +51,29 @@ export async function UploadPost(
       url: url,
     });
 
-    // Upload Images
+    // Upload Images as actual image files
     const uploadPromises: Promise<any>[] = [];
 
-    images.forEach((img, index) => {
+    base64Images.forEach((base64String, index) => {
+      // Convert base64 to Blob
+      const byteString = atob(base64String.split(",")[1]); // Remove data URL prefix
+      const mimeString = base64String.split(",")[0].split(":")[1].split(";")[0];
+
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      const blob = new Blob([ab], { type: mimeString });
+
+      // Create storage reference
       const storageRef = ref(
         storage,
-        `images/${docRef.id}/${randomImageUUIDs[index]}`,
+        `images/${docRef.id}/${randomImageUUIDs[index]}`, // Add file extension
       );
-      uploadPromises.push(
-        uploadBytes(storageRef, img, { contentType: img.type }),
-      );
+
+      // Upload as Blob instead of string
+      uploadPromises.push(uploadBytes(storageRef, blob));
     });
 
     await Promise.all(uploadPromises);

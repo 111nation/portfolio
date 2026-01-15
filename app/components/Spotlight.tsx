@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ReactNode } from "react";
 
 interface CardProps {
@@ -54,7 +55,9 @@ function Spotlight() {
         <Card category="E-commerce" src="simracing-spotlight.png">
           Sim Racing Wheels
         </Card>
-        <Card category="View My Portfolio">View More</Card>
+        <Link href="/portfolio" target="_blank">
+          <Card category="View My Portfolio">View More</Card>
+        </Link>
       </div>
     </div>
   );

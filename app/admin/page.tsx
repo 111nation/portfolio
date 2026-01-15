@@ -6,7 +6,7 @@ import { LogInFirebase } from "@/app/lib/login";
 import { useRouter } from "next/navigation";
 
 function Admin() {
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
   const router = useRouter();
 
   const onSubmit = (event: any) => {
@@ -28,7 +28,9 @@ function Admin() {
       .then(() => {
         router.push("/portfolio");
       })
-      .catch((error) => setError(error));
+      .catch((error: any) => {
+        setError(error.message.toString());
+      });
   };
 
   return (
